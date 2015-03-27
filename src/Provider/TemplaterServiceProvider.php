@@ -23,7 +23,10 @@ class TemplaterServiceProvider extends ServiceProvider {
         $this->app->bind('format', 'Templater\Format\Format');
 
         foreach ($this->app->config->get('template-directives') as $directive) {
-            $this->app->make('Templater\Directive\\' . $directive)->register();
+            // To allow for local custom directives
+            $class = (class_exists($directive)) ? $directive : 'Templater\Directive\\' . $directive;
+
+            $this->app->make($class)->register();
         }
     }
 
