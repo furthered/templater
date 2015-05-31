@@ -72,7 +72,8 @@ class Format {
         }
 
         foreach ($this->collectKeys($collection, $key) as $key => $item) {
-            $list[] = link_to(route($route, array_fetch($params, $key)), $item);
+            $list[] = '<a href="' . route($route, array_fetch($params, $key)) . '">'
+                            . $item . '</a>';
         }
 
         return $this->listize($list);
