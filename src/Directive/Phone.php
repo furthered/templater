@@ -6,7 +6,7 @@ class Phone extends Directive {
 
     protected function getName()
     {
-        return 'phone',
+        return 'phone';
     }
 
     protected function directive($expression)

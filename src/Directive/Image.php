@@ -6,7 +6,7 @@ class Image extends Directive {
 
     protected function getName()
     {
-        return 'image',
+        return 'image';
     }
 
     protected function directive($expression)

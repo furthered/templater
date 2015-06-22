@@ -6,7 +6,7 @@ class ListizeLinks extends Directive {
 
     protected function getName()
     {
-        return 'linkList',
+        return 'linkList';
     }
 
     protected function directive($expression)

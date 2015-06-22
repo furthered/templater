@@ -6,7 +6,7 @@ class Listize extends Directive {
 
     protected function getName()
     {
-        return 'list',
+        return 'list';
     }
 
     protected function directive($expression)
