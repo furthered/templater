@@ -4,11 +4,14 @@ namespace Templater\Directive;
 
 class Listize extends Directive {
 
-    protected function directive($view, $compiler)
+    protected function getName()
     {
-        $pattern = $compiler->createMatcher('list');
+        return 'list',
+    }
 
-        return preg_replace($pattern, '<?php echo Format::toList$2; ?>', $view);
+    protected function directive($expression)
+    {
+        return "<?php echo Format::toList{$expression}; ?>";
     }
 
 }

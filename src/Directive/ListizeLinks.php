@@ -4,11 +4,14 @@ namespace Templater\Directive;
 
 class ListizeLinks extends Directive {
 
-    protected function directive($view, $compiler)
+    protected function getName()
     {
-        $pattern = $compiler->createMatcher('linkList');
+        return 'linkList',
+    }
 
-        return preg_replace($pattern, '<?php echo Format::toListLinks$2; ?>', $view);
+    protected function directive($expression)
+    {
+        return "<?php echo Format::toListLinks{$expression}; ?>";
     }
 
 }

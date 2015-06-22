@@ -8,11 +8,13 @@ abstract class Directive {
 
     public function register()
     {
-        \Blade::extend(function ($view, $compiler) {
-            return $this->directive($view, $compiler);
+        \Blade::directive($this->getName(), function($expression) {
+            return $this->directive($expression);
         });
     }
 
-    protected abstract function directive($view, $compiler);
+    protected abstract function directive($expression);
+
+    protected abstract function getName();
 
 }

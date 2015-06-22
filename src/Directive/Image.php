@@ -4,11 +4,14 @@ namespace Templater\Directive;
 
 class Image extends Directive {
 
-    protected function directive($view, $compiler)
+    protected function getName()
     {
-        $pattern = $compiler->createMatcher('image');
+        return 'image',
+    }
 
-        return preg_replace($pattern, '<?php echo Assets::image()->dynamic$2; ?>', $view);
+    protected function directive($expression)
+    {
+        return "<?php echo Assets::image()->dynamic{$expression}; ?>";
     }
 
 }

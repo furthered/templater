@@ -4,11 +4,14 @@ namespace Templater\Directive;
 
 class Phone extends Directive {
 
-    protected function directive($view, $compiler)
+    protected function getName()
     {
-        $pattern = $compiler->createMatcher('phone');
+        return 'phone',
+    }
 
-        return preg_replace($pattern, '<?php echo Format::phone($2); ?>', $view);
+    protected function directive($expression)
+    {
+        return "<?php echo Format::phone{$expression}; ?>";
     }
 
 }
