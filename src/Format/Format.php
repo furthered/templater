@@ -53,6 +53,10 @@ class Format {
         $collection = $this->normalizeCollection($collection);
 
         return $collection->map(function($item) use ($key) {
+            if (method_exists($item, 'present')) {
+                return $item->present()->{$key};
+            }
+
             return $item->{$key};
         });
     }
