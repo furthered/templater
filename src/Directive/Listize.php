@@ -11,7 +11,7 @@ class Listize extends Directive {
 
     protected function directive($expression)
     {
-        return "<?php echo Format::toList{$expression}; ?>";
+        return "<?php echo (new Templater\Format\Format)->oList{$expression}; ?>";
     }
 
 }
