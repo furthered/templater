@@ -2,11 +2,11 @@
 
 namespace Templater\Directive;
 
-class Listize extends Directive {
+class Datetime extends Directive {
 
     protected function getName()
     {
-        return 'list';
+        return 'datetime';
     }
 
     protected function directive($expression)
