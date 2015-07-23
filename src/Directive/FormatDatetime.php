@@ -2,7 +2,7 @@
 
 namespace Templater\Directive;
 
-class Datetime extends Directive {
+class FormatDatetime extends Directive {
 
     protected function getName()
     {
