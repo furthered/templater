@@ -8,8 +8,10 @@
         }
     ],
     "require": {
-        "illuminate/support": "~5.0",
-        "illuminate/view": "~5.0"
+        "illuminate/support": "5.1.*",
+        "illuminate/view": "5.1.*",
+        "nesbot/carbon": "^1.20",
+        "furthered/assets": "dev-master"
     },
     "autoload": {
         "psr-4": {
