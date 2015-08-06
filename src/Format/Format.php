@@ -68,16 +68,37 @@ class Format {
 
     public function toListLinks($collection, $key, $route, ...$route_params)
     {
-        $params = [];
-        $list   = [];
+        $params       = [];
+        $list         = [];
+        $extras       = [];
+
+        if (is_array(last($route_params))) {
+            $extras = array_pop($route_params);
+        }
+
+        $append_plain  = $this->getPlainTextExtras($extras, 'append_plain', $collection);
+        $prepend_plain = $this->getPlainTextExtras($extras, 'prepend_plain', $collection);
 
         foreach ($route_params as $param) {
             $params[] = $this->collectKeys($collection, $param)->toArray();
         }
 
         foreach ($this->collectKeys($collection, $key) as $key => $item) {
-            $list[] = '<a href="' . route($route, array_fetch($params, $key)) . '">'
-                            . $item . '</a>';
+
+            $str = '';
+
+            if ($str_prepend = $this->getPlainTextReplaced($extras, 'prepend_plain', $prepend_plain, $key)) {
+                $str .= $str_prepend;
+            }
+
+            $str .= '<a href="' . route($route, array_fetch($params, $key)) . '">';
+            $str .= $item . '</a>';
+
+            if ($str_append = $this->getPlainTextReplaced($extras, 'append_plain', $append_plain, $key)) {
+                $str .= $str_append;
+            }
+
+            $list[] = $str;
         }
 
         return $this->listize($list);
@@ -105,6 +126,41 @@ class Format {
                 return implode(', ', $list->toArray());
             break;
         }
+    }
+
+    protected function getPlainTextExtras($extras, $key, $collection)
+    {
+        if (!array_get($extras, $key)) {
+            return [];
+        }
+
+        $plain_text_vars = [];
+
+        preg_match_all('/{(.*)}/', $extras[$key], $matches);
+
+        $vars = array_map('trim', $matches[1]);
+
+        foreach ($vars as $var) {
+            $plain_text_vars[$var] = $this->collectKeys($collection, $var);
+        }
+
+        return $plain_text_vars;
+    }
+
+    protected function getPlainTextReplaced($extras, $extra_key, $plain_values, $key)
+    {
+        $str_append = array_get($extras, $extra_key);
+
+        foreach ($plain_values as $var => $values) {
+            if ($values[$key] === null) {
+                // If we come accross a null value, this string is invalid, just kill it.
+                return null;
+            }
+
+            $str_append = preg_replace('/{(.*)' . $var . '(.*)}/', $values[$key], $str_append);
+        }
+
+        return $str_append;
     }
 
 }
