@@ -1,0 +1,22 @@
+machine:
+  php:
+    version: 5.6.2
+dependencies:
+  pre:
+    - echo "memory_limit = -1" > ~/.phpenv/versions/$(phpenv global)/etc/conf.d/memory.ini
+  override:
+    - composer install --prefer-source --no-interaction --no-scripts
+# checkout:
+#   post:
+#     - npm install
+#     - cd public && bower install
+#     - ./node_modules/gulp/bin/gulp.js --gulpfile=public/build/gulpfile.js buildAll
+test:
+  override:
+    - vendor/bin/phpunit tests/
+  # override:
+  #   - cd public && ./../node_modules/karma/bin/karma start --single-run
+general:
+  branches:
+    only:
+      - master
