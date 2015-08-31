@@ -129,4 +129,18 @@ class TemplaterTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame('Joe, Damian, and Ga&hellip;', $result);
     }
 
+    /** @test */
+    public function it_can_remove_the_third_item_in_a_list_if_matches_exactly()
+    {
+        $list = [
+            ['name' => 'Joe'],
+            ['name' => 'Damian'],
+            ['name' => 'Gary'],
+        ];
+
+        $result = (new Format)->toList($list, 'name', 17);
+
+        $this->assertSame('Joe, Damian&hellip;', $result);
+    }
+
 }

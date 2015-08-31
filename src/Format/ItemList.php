@@ -206,6 +206,8 @@ class ItemList {
                 continue;
             }
 
+            $new_list_length = $key + 1;
+
             // If both together are longer, see if the string by itself is as well
             if ($item_char_count + $total_chars >= $this->char_limit) {
 
@@ -217,11 +219,12 @@ class ItemList {
                 }
 
                 $list[$key] = substr($item, 0, $item_substr_count) . $this->end_chars;
-            } elseif ($key + 1 !== $list_count) {
-                $list[$key] = $item . $this->end_chars;
+                break;
             }
 
-            $new_list_length = $key + 1;
+            if ($key + 1 !== $list_count) {
+                $list[$key] = $item . $this->end_chars;
+            }
 
             // Regardless, stop looping. We've hit the limit.
             break;
