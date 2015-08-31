@@ -4,6 +4,8 @@ namespace Templater\Test;
 
 use Templater\Format\Format;
 
+require_once 'route.php';
+
 class TemplaterTest extends \PHPUnit_Framework_TestCase {
 
     /** @test */
@@ -160,6 +162,56 @@ class TemplaterTest extends \PHPUnit_Framework_TestCase {
         $result = (new Format)->toList($list, 'name', 17);
 
         $this->assertSame('Joe, Damian&hellip;', $result);
+    }
+
+    /** @test */
+    public function it_can_create_a_linked_list()
+    {
+        $list = [
+            ['name' => 'Joe', 'id' => 1],
+            ['name' => 'Damian', 'id' => 2],
+            ['name' => 'Gary', 'id' => 3],
+        ];
+
+        $result = (new Format)->toListLinks($list, 'name', 'user', 'id');
+
+        $this->assertSame('<a href="/user/1">Joe</a>, <a href="/user/2">Damian</a>, and <a href="/user/3">Gary</a>', $result);
+    }
+
+    /** @test */
+    public function it_can_create_a_linked_list_with_something_appended()
+    {
+        $list = [
+            ['name' => 'Joe', 'id' => 1, 'company' => 'Joe Co'],
+            ['name' => 'Damian', 'id' => 2, 'company' => 'Damian Co'],
+            ['name' => 'Gary', 'id' => 3, 'company' => 'Gary Co'],
+        ];
+
+        $result = (new Format)->toListLinks($list, 'name', 'user', 'id', ['append_plain' => ' <span class="also">({company})</span>']);
+
+        $str = '<a href="/user/1">Joe</a> <span class="also">(Joe Co)</span>, '
+                . '<a href="/user/2">Damian</a> <span class="also">(Damian Co)</span>, '
+                . 'and <a href="/user/3">Gary</a> <span class="also">(Gary Co)</span>';
+
+        $this->assertSame($str, $result);
+    }
+
+    /** @test */
+    public function it_can_create_a_linked_list_with_something_prepended()
+    {
+        $list = [
+            ['name' => 'Joe', 'id' => 1, 'company' => 'Joe Co'],
+            ['name' => 'Damian', 'id' => 2, 'company' => 'Damian Co'],
+            ['name' => 'Gary', 'id' => 3, 'company' => 'Gary Co'],
+        ];
+
+        $result = (new Format)->toListLinks($list, 'name', 'user', 'id', ['prepend_plain' => '<span class="also">({company})</span> ']);
+
+        $str = '<span class="also">(Joe Co)</span> <a href="/user/1">Joe</a>, '
+                . '<span class="also">(Damian Co)</span> <a href="/user/2">Damian</a>, '
+                . 'and <span class="also">(Gary Co)</span> <a href="/user/3">Gary</a>';
+
+        $this->assertSame($str, $result);
     }
 
 }

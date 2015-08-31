@@ -38,14 +38,14 @@ class ItemList {
             $extras = array_pop($this->route_params);
         }
 
-        $append_plain  = $this->getPlainTextExtras($extras, 'append_plain', $collection);
-        $prepend_plain = $this->getPlainTextExtras($extras, 'prepend_plain', $collection);
+        $append_plain  = $this->getPlainTextExtras($extras, 'append_plain', $this->items);
+        $prepend_plain = $this->getPlainTextExtras($extras, 'prepend_plain', $this->items);
 
         foreach ($this->route_params as $param) {
-            $params[] = $this->collectKeys($collection, $param)->toArray();
+            $params[] = $this->collectKeys($this->items, $param)->toArray();
         }
 
-        foreach ($this->collectKeys($collection, $key) as $key => $item) {
+        foreach ($this->collectKeys($this->items, $this->key) as $key => $item) {
 
             $str = '';
 
@@ -53,7 +53,7 @@ class ItemList {
                 $str .= $str_prepend;
             }
 
-            $str .= '<a href="' . route($route, array_fetch($params, $key)) . '">';
+            $str .= '<a href="' . route($this->route, array_fetch($params, $key)) . '">';
             $str .= $item . '</a>';
 
             if ($str_append = $this->getPlainTextReplaced($extras, 'append_plain', $append_plain, $key)) {
@@ -219,6 +219,7 @@ class ItemList {
                 }
 
                 $list[$key] = substr($item, 0, $item_substr_count) . $this->end_chars;
+
                 break;
             }
 
