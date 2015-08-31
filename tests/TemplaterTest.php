@@ -7,8 +7,27 @@ use Templater\Format\Format;
 class TemplaterTest extends \PHPUnit_Framework_TestCase {
 
     /** @test */
-    public function it_can_do_nothing_for_now()
+    public function it_can_format_a_phone_number()
     {
+        $formatted = (new Format)->phone('1234567890');
+
+        $this->assertSame('(123) 456-7890', $formatted);
+    }
+
+    /** @test */
+    public function it_can_format_a_phone_number_with_an_extension()
+    {
+        $formatted = (new Format)->phone('1234567890x987');
+
+        $this->assertSame('(123) 456-7890 ext. 987', $formatted);
+    }
+
+    /** @test */
+    public function it_will_leave_alone_a_format_it_does_not_recognize()
+    {
+        $formatted = (new Format)->phone('11234567890');
+
+        $this->assertSame('11234567890', $formatted);
     }
 
     /** @test */

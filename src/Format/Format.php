@@ -12,7 +12,6 @@ class Format {
      * @param string $phone Ugly phone number
      * @return string
      */
-
     public function phone($phone)
     {
         $parts  = explode('x', preg_replace('/[^\dx]/', '', strtolower($phone)));
