@@ -188,66 +188,44 @@ class ItemList {
 
     protected function getTruncatedList($list)
     {
+        $new_list_length = null;
         $end_char_count  = $this->strLen(html_entity_decode($this->end_chars));
         $substr_count    = $this->char_limit - $end_char_count;
-        $new_list_length = null;
         $list_count      = $list->count();
+        $total_chars     = 0;
 
-        // if ($list_count === 1) {
-        //     if ($this->strLen($list->first()) > $this->char_limit) {
-        //         $list[0] = substr($list->first(), 0, $substr_count) . $this->end_chars;
-        //     }
-        // }
+        foreach ($list as $key => $item) {
+            $separater_char_count = $this->getSeparaterCharCount($list_count, $key);
+            $item_char_count      = $this->strLen($item);
 
-        // if ($list_count === 2) {
-        //     if ($this->strLen($list->first()) > $this->char_limit) {
-        //         $list[0] = substr($list->first(), 0, $substr_count) . $this->end_chars;
-        //         $new_list_length = 1;
-        //     } elseif ($this->strLen($list->first() . $this->and) > $this->char_limit) {
-        //         $list[0] = $list->first() . $this->end_chars;
-        //         $new_list_length = 1;
-        //     } elseif ($this->strLen($list->first() . $this->and . $list[1]) > $this->char_limit) {
-        //         $item_char_limit = $substr_count - $this->strLen($list->first() . $this->and);
-        //         $list[1] = substr($list[1], 0, $item_char_limit) . $this->end_chars;
-        //     }
-        // }
+            // If we're still under the limit just move on
+            if ($item_char_count + $separater_char_count + $total_chars < $this->char_limit) {
+                // Add onto the total chars used so far and keep going
+                $total_chars += $item_char_count + $separater_char_count;
 
-        // if ($list_count > 2) {
-            $total_chars = 0;
-
-            foreach ($list as $key => $item) {
-                $separater_char_count = $this->getSeparaterCharCount($list_count, $key);
-                $item_char_count      = $this->strLen($item);
-
-                // If we're still under the limit just move on
-                if ($item_char_count + $separater_char_count + $total_chars < $this->char_limit) {
-                    // Add onto the total chars used so far and keep going
-                    $total_chars += $item_char_count + $separater_char_count;
-
-                    continue;
-                }
-
-                // If both together are longer, see if the string by itself is as well
-                if ($item_char_count + $total_chars >= $this->char_limit) {
-
-                    if ($total_chars === 0) {
-                        // If we're in the first item and hit the limit, it's just the char limit
-                        $item_substr_count = $this->char_limit - $end_char_count;
-                    } else {
-                        $item_substr_count = $this->char_limit - $total_chars - $end_char_count;
-                    }
-
-                    $list[$key] = substr($item, 0, $item_substr_count) . $this->end_chars;
-                } elseif ($key + 1 !== $list_count) {
-                    $list[$key] = $item . $this->end_chars;
-                }
-
-                $new_list_length = $key + 1;
-
-                // Regardless, stop looping. We've hit the limit.
-                break;
+                continue;
             }
-        // }
+
+            // If both together are longer, see if the string by itself is as well
+            if ($item_char_count + $total_chars >= $this->char_limit) {
+
+                if ($total_chars === 0) {
+                    // If we're in the first item and hit the limit, it's just the char limit
+                    $item_substr_count = $this->char_limit - $end_char_count;
+                } else {
+                    $item_substr_count = $this->char_limit - $total_chars - $end_char_count;
+                }
+
+                $list[$key] = substr($item, 0, $item_substr_count) . $this->end_chars;
+            } elseif ($key + 1 !== $list_count) {
+                $list[$key] = $item . $this->end_chars;
+            }
+
+            $new_list_length = $key + 1;
+
+            // Regardless, stop looping. We've hit the limit.
+            break;
+        }
 
         return $new_list_length;
     }
