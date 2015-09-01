@@ -165,6 +165,20 @@ class TemplaterTest extends \PHPUnit_Framework_TestCase {
     }
 
     /** @test */
+    public function it_will_trim_excess_space_before_ellipses()
+    {
+        $list = [
+            ['name' => 'Joe'],
+            ['name' => 'Damian'],
+            ['name' => 'Gary LastName'],
+        ];
+
+        $result = (new Format)->toList($list, 'name', 23);
+
+        $this->assertSame('Joe, Damian, and Gary&hellip;', $result);
+    }
+
+    /** @test */
     public function it_can_create_a_linked_list()
     {
         $list = [

@@ -227,7 +227,7 @@ class ItemList {
                     $item_substr_count = $this->char_limit - $total_chars - $end_char_count;
                 }
 
-                $list[$key] = substr($item, 0, $item_substr_count) . $this->end_chars;
+                $list[$key] = rtrim(substr($item, 0, $item_substr_count)) . $this->end_chars;
 
                 break;
             }
