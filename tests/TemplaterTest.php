@@ -179,6 +179,20 @@ class TemplaterTest extends \PHPUnit_Framework_TestCase {
     }
 
     /** @test */
+    public function it_can_create_a_truncated_linked_list()
+    {
+        $list = [
+            ['name' => 'Joe', 'id' => 1],
+            ['name' => 'Damian', 'id' => 2],
+            ['name' => 'Gary', 'id' => 3],
+        ];
+
+        $result = (new Format)->toListLinks($list, 'name', 'user', 'id', ['truncate' => 20]);
+
+        $this->assertSame('<a href="/user/1">Joe</a>, <a href="/user/2">Damian</a>, and <a href="/user/3">Ga&hellip;</a>', $result);
+    }
+
+    /** @test */
     public function it_can_create_a_linked_list_with_something_appended()
     {
         $list = [

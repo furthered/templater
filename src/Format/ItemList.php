@@ -30,9 +30,10 @@ class ItemList {
 
     public function links()
     {
-        $params       = [];
-        $list         = [];
-        $extras       = [];
+        $params          = [];
+        $list            = [];
+        $extras          = [];
+        $new_list_length = null;
 
         if (is_array(last($this->route_params))) {
             $extras = array_pop($this->route_params);
@@ -45,7 +46,15 @@ class ItemList {
             $params[] = $this->collectKeys($this->items, $param)->toArray();
         }
 
-        foreach ($this->collectKeys($this->items, $this->key) as $key => $item) {
+        $items = $this->collectKeys($this->items, $this->key);
+
+        if (array_key_exists('truncate', $extras)) {
+            $this->setCharLimit($extras['truncate']);
+            $new_list_length = $this->getTruncatedList($items);
+            $this->setCharLimit(null);
+        }
+
+        foreach ($items as $key => $item) {
 
             $str = '';
 
@@ -63,7 +72,7 @@ class ItemList {
             $list[] = $str;
         }
 
-        return $this->listize($list);
+        return $this->listize($list, $new_list_length);
     }
 
     public function setCharLimit($char_limit)
