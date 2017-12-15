@@ -2,8 +2,8 @@
 
 namespace Templater\Directive;
 
-class Image extends Directive {
-
+class Image extends Directive
+{
     protected function getName()
     {
         return 'image';
@@ -11,7 +11,6 @@ class Image extends Directive {
 
     protected function directive($expression)
     {
-        return "<?php echo Assets::image()->dynamic{$expression}; ?>";
+        return "<?php echo Assets::image()->fetch{$expression}; ?>";
     }
-
 }
