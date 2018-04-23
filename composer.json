@@ -8,10 +8,10 @@
         }
     ],
     "require": {
-        "illuminate/support": "5.1.*",
-        "illuminate/view": "5.1.*",
+        "illuminate/support": "5.2.*",
+        "illuminate/view": "5.2.*",
         "nesbot/carbon": "^1.20",
-        "furthered/assets": "~0.0"
+        "furthered/assets": "dev-laravel-5.2"
     },
     "autoload": {
         "psr-4": {
