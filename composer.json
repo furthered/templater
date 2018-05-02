@@ -7,11 +7,17 @@
             "role": "Author"
         }
     ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url":  "https://github.com/furthered/assets.git"
+        }
+    ],
     "require": {
         "illuminate/support": "5.2.*",
         "illuminate/view": "5.2.*",
         "nesbot/carbon": "^1.20",
-        "furthered/assets": "dev-develop"
+        "furthered/assets": "0.1.0"
     },
     "autoload": {
         "psr-4": {
