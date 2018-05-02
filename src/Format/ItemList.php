@@ -62,7 +62,7 @@ class ItemList {
                 $str .= $str_prepend;
             }
 
-            $str .= '<a href="' . route($this->route, array_fetch($params, $key)) . '">';
+            $str .= '<a href="' . route($this->route, array_pluck($params, $key)) . '">';
             $str .= $item . '</a>';
 
             if ($str_append = $this->getPlainTextReplaced($extras, 'append_plain', $append_plain, $key)) {
