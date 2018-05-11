@@ -7,9 +7,15 @@
             "role": "Author"
         }
     ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url":  "https://github.com/furthered/assets.git"
+        }
+    ],
     "require": {
-        "illuminate/support": "5.2.*",
-        "illuminate/view": "5.2.*",
+        "illuminate/support": "5.3.*",
+        "illuminate/view": "5.3.*",
         "nesbot/carbon": "^1.20",
         "furthered/assets": "dev-develop"
     },
