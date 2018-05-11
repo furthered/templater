@@ -11,7 +11,7 @@ class Phone extends Directive {
 
     protected function directive($expression)
     {
-        return "<?php echo (new Templater\Format\Format)->phone($expression); ?>";
+        return "<?php echo (new Templater\Format\Format)->phone({$expression}); ?>";
     }
 
 }
