@@ -11,7 +11,7 @@ class ListizeLinks extends Directive {
 
     protected function directive($expression)
     {
-        return "<?php echo (new Templater\Format\Format)->toListLinks{$expression}; ?>";
+        return "<?php echo (new Templater\Format\Format)->toListLinks({$expression}); ?>";
     }
 
 }
