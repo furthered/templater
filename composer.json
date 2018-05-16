@@ -17,7 +17,7 @@
         "illuminate/support": "5.3.*",
         "illuminate/view": "5.3.*",
         "nesbot/carbon": "^1.20",
-        "furthered/assets": "dev-develop"
+        "furthered/assets": "0.2.*"
     },
     "autoload": {
         "psr-4": {
