@@ -14,10 +14,10 @@
         }
     ],
     "require": {
-        "illuminate/support": "5.3.*",
-        "illuminate/view": "5.3.*",
+        "illuminate/support": "5.4.*",
+        "illuminate/view": "5.4.*",
         "nesbot/carbon": "^1.20",
-        "furthered/assets": "0.2.*"
+        "furthered/assets": "dev-laravel-5.4"
     },
     "autoload": {
         "psr-4": {
