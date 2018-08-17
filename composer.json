@@ -14,10 +14,10 @@
         }
     ],
     "require": {
-        "illuminate/support": "5.4.*",
-        "illuminate/view": "5.4.*",
+        "illuminate/support": "5.5.*",
+        "illuminate/view": "5.5.*",
         "nesbot/carbon": "^1.20",
-        "furthered/assets": "0.3.*"
+        "furthered/assets": "dev-develop"
     },
     "autoload": {
         "psr-4": {
