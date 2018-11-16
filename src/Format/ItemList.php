@@ -41,7 +41,7 @@ class ItemList
 
         $append_plain  = $this->getPlainTextExtras($extras, 'append_plain', $this->items);
         $prepend_plain = $this->getPlainTextExtras($extras, 'prepend_plain', $this->items);
-        $attr          = array_key_exists('attr', $extras) ? $extras['attr'] : '';
+        $attr          = array_get($extras, 'attr', '');
 
         foreach ($this->route_params as $param) {
             $params[] = $this->collectKeys($this->items, $param)->toArray();
