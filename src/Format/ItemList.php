@@ -4,8 +4,8 @@ namespace Templater\Format;
 
 use Illuminate\Support\Collection;
 
-class ItemList {
-
+class ItemList
+{
     protected $items;
 
     protected $key;
@@ -41,6 +41,7 @@ class ItemList {
 
         $append_plain  = $this->getPlainTextExtras($extras, 'append_plain', $this->items);
         $prepend_plain = $this->getPlainTextExtras($extras, 'prepend_plain', $this->items);
+        $attr          = array_get($extras, 'attr', '');
 
         foreach ($this->route_params as $param) {
             $params[] = $this->collectKeys($this->items, $param)->toArray();
@@ -62,7 +63,7 @@ class ItemList {
                 $str .= $str_prepend;
             }
 
-            $str .= '<a href="' . route($this->route, array_pluck($params, $key)) . '">';
+            $str .= '<a href="' . route($this->route, array_pluck($params, $key)) . '" ' . $attr . '>';
             $str .= $item . '</a>';
 
             if ($str_append = $this->getPlainTextReplaced($extras, 'append_plain', $append_plain, $key)) {
@@ -172,7 +173,7 @@ class ItemList {
             $final_list = $list;
         }
 
-        switch($list->count()) {
+        switch ($list->count()) {
             case 0:
                 return '';
             break;
@@ -286,5 +287,4 @@ class ItemList {
 
         return $this->listize($list, $new_list_length);
     }
-
 }
