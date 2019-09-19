@@ -14,8 +14,8 @@
         }
     ],
     "require": {
-        "illuminate/support": "5.7.*",
-        "illuminate/view": "5.7.*",
+        "illuminate/support": "5.8.*",
+        "illuminate/view": "5.8.*",
         "nesbot/carbon": "^1.20",
         "furthered/assets": "dev-develop"
     },

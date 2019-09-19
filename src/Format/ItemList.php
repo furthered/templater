@@ -2,6 +2,7 @@
 
 namespace Templater\Format;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
 class ItemList
@@ -41,7 +42,7 @@ class ItemList
 
         $append_plain  = $this->getPlainTextExtras($extras, 'append_plain', $this->items);
         $prepend_plain = $this->getPlainTextExtras($extras, 'prepend_plain', $this->items);
-        $attr          = array_get($extras, 'attr', '');
+        $attr          = Arr::get($extras, 'attr', '');
 
         foreach ($this->route_params as $param) {
             $params[] = $this->collectKeys($this->items, $param)->toArray();
@@ -63,7 +64,7 @@ class ItemList
                 $str .= $str_prepend;
             }
 
-            $str .= '<a href="' . route($this->route, array_pluck($params, $key)) . '" ' . $attr . '>';
+            $str .= '<a href="' . route($this->route, Arr::pluck($params, $key)) . '" ' . $attr . '>';
             $str .= $item . '</a>';
 
             if ($str_append = $this->getPlainTextReplaced($extras, 'append_plain', $append_plain, $key)) {
@@ -104,7 +105,7 @@ class ItemList
 
     protected function getPlainTextExtras($extras, $key, $collection)
     {
-        if (!array_get($extras, $key)) {
+        if (!Arr::get($extras, $key)) {
             return [];
         }
 
@@ -123,7 +124,7 @@ class ItemList
 
     protected function getPlainTextReplaced($extras, $extra_key, $plain_values, $key)
     {
-        $str_append = array_get($extras, $extra_key);
+        $str_append = Arr::get($extras, $extra_key);
 
         foreach ($plain_values as $var => $values) {
             if ($values[$key] === null) {
