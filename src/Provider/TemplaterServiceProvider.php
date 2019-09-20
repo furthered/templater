@@ -4,21 +4,14 @@ namespace Templater\Provider;
 
 use Illuminate\Support\ServiceProvider;
 
-class TemplaterServiceProvider extends ServiceProvider {
-
-    /**
-     * Indicates if loading of the provider is deferred.
-     *
-     * @var bool
-     */
-    protected $defer = false;
-
+class TemplaterServiceProvider extends ServiceProvider
+{
     /**
      * Register the service provider.
      *
      * @return void
      */
-    public function register()
+    public function boot()
     {
         $this->app->bind('format', 'Templater\Format\Format');
 
