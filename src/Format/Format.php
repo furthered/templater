@@ -2,8 +2,10 @@
 
 namespace Templater\Format;
 
-class Format {
+use Illuminate\Support\Str;
 
+class Format
+{
     /**
      * Phone
      *
@@ -18,7 +20,7 @@ class Format {
         $number = $parts[0];
         $len    = strlen($number);
 
-        if ($len == 11 && starts_with($number, 1)) {
+        if ($len == 11 && Str::startsWith($number, 1)) {
             $len--;
             $number = substr($number, 1, $len);
         }
@@ -55,5 +57,4 @@ class Format {
 
         return (string) $list->links();
     }
-
 }
