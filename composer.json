@@ -17,7 +17,7 @@
         "illuminate/support": "~8.0",
         "illuminate/view": "~8.0",
         "nesbot/carbon": "~2.0",
-        "furthered/assets": "dev-6036-move-to-laravel-mix"
+        "furthered/assets": "~2.0"
     },
     "autoload": {
         "psr-4": {
