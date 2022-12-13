@@ -57,7 +57,6 @@ class ItemList
         }
 
         foreach ($items as $key => $item) {
-
             $str = '';
 
             if ($str_prepend = $this->getPlainTextReplaced($extras, 'prepend_plain', $prepend_plain, $key)) {
@@ -140,7 +139,7 @@ class ItemList
 
     protected function normalizeCollection($collection)
     {
-        if (!method_exists($collection, 'toArray')) {
+        if (! $collection instanceof Collection) {
             return new Collection($collection);
         }
 
@@ -151,7 +150,7 @@ class ItemList
     {
         $collection = $this->normalizeCollection($collection);
 
-        return $collection->map(function($item) use ($key) {
+        return $collection->map(function ($item) use ($key) {
             if (is_array($item)) {
                 return $item[$key];
             }
@@ -177,15 +176,15 @@ class ItemList
         switch ($list->count()) {
             case 0:
                 return '';
-            break;
+                break;
 
             case 1:
                 return $final_list->first();
-            break;
+                break;
 
             case 2:
                 return implode($this->and, $final_list->toArray());
-            break;
+                break;
 
             default:
                 if ($final_list->count() > 2) {
@@ -193,7 +192,7 @@ class ItemList
                 }
 
                 return implode($this->comma, $final_list->toArray());
-            break;
+                break;
         }
     }
 
@@ -221,7 +220,6 @@ class ItemList
 
             // If both together are longer, see if the string by itself is as well
             if ($item_char_count + $total_chars >= $this->char_limit) {
-
                 if ($total_chars === 0) {
                     // If we're in the first item and hit the limit, it's just the char limit
                     $item_substr_count = $this->char_limit - $end_char_count;
