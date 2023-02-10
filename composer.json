@@ -3,13 +3,19 @@
     "description": "Template helper, extends Blade, registers various formatters",
     "authors": [
         {
-            "name": "Joe Tannenbaum",
+            "name": "Lawline Dev",
             "role": "Author"
         }
     ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url":  "https://github.com/furthered/assets.git"
+        }
+    ],
     "require": {
-        "illuminate/support": "~8.0",
-        "illuminate/view": "~8.0",
+        "illuminate/support": "~9.0",
+        "illuminate/view": "~9.0",
         "nesbot/carbon": "~2.0",
         "furthered/assets": "dev-develop"
     },
